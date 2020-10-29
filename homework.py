@@ -19,10 +19,10 @@ client = Client(ACC_SID, AUTH_TOKEN)
 
 def get_status(user_id):
     params = {
-        'access_token': VK_TOKEN,
         'user_ids': user_id,
+        'fields': 'online',
         'v': VK_API_V,
-        'fields': 'online'
+        'access_token': VK_TOKEN
     }
     url = URL + GET_USER
     try:
