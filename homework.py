@@ -10,11 +10,11 @@ import logging
 load_dotenv()
 VK_API_VERSION = os.getenv('VK_API_VERSION')
 VK_TOKEN = os.getenv('VK_TOKEN')
-ACCOUNT_SID = os.getenv('ACCOUNT_SID ')
+ACCOUNT_SID = os.getenv('ACCOUNT_SID')
 AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 NUMBER_FROM = os.getenv('NUMBER_FROM')
 NUMBER_TO = os.getenv('NUMBER_TO')
-client = Client(ACCOUNT_SID, AUTH_TOKEN)
+CLIENT_TWILIO = Client(ACCOUNT_SID, AUTH_TOKEN)
 URL = 'https://api.vk.com/method/'
 USER_GET = 'users.get'
 
@@ -26,17 +26,17 @@ def get_status(user_id):
         'v': VK_API_VERSION,
         'access_token': VK_TOKEN
     }
-    url = URL + USER_GET
+    url = f"{URL} + {USER_GET}"
     try:
         request = requests.post(url, params=params).json()['response']
         user_status = request[0]['online']
         return user_status
     except Exception as e:
-        logging.exception(f'Request raised. Error: {e}')
+        logging.exception(f'The work stopped. Error: {e}')
 
 
 def sms_sender(sms_text):
-    message = client.messages.create(
+    message = CLIENT_TWILIO.messages.create(
         body=sms_text,
         from_=NUMBER_FROM,
         to=NUMBER_TO
