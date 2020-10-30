@@ -26,7 +26,7 @@ def get_status(user_id):
         'v': VK_API_VERSION,
         'access_token': VK_TOKEN
     }
-    url = f"{URL} + {USER_GET}"
+    url = URL + USER_GET 
     try:
         request = requests.post(url, params=params).json()['response']
         user_status = request[0]['online']
